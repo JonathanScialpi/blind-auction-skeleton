@@ -1,6 +1,5 @@
 package com.r3.conclave.sample.host;
 
-import com.r3.conclave.common.OpaqueBytes;
 import com.r3.conclave.host.AttestationParameters;
 import com.r3.conclave.host.EnclaveHost;
 import com.r3.conclave.host.EnclaveLoadException;
