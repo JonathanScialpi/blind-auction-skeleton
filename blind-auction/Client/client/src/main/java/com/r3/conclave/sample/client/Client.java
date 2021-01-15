@@ -27,10 +27,14 @@ public class Client {
         int[] bids = new int[5];
         int sequenceNumber = 0;
 
-        // Generate our own Curve25519 keypair so we can receive a response.
+        /** Generate our own Curve25519 keypair so we can receive a response.
+         * In production, we would of course use a separate key pair for each client, but we will just use the same
+         * to keep things simple.
+         */
         KeyPair myKey = new Curve25519KeyPairGenerator().generateKeyPair();
 
         // Send a GET request to retrieve the remote attestation
+        // TODO: Remember to update this attestation to the one your enclave gives you.
         EnclaveInstanceInfo receivedRA = getRa(
                 "http://localhost:8080/sealed_bid_ra",
                 "S:1AFE60D9DFDD2BFDDDEFD59B55ED08AE417C2780A0802CD806B11283C337A385 PROD:1 SEC:INSECURE");
