@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- *  Welcome to the Host side of the Blind-Auction Application and congratulations for making it this far!
+ *  Welcome to the Blind-Auction Conclave Training App!
  *
- *  Task 3: The first thing we are going to work on is the HostController's Constructor so that as soon as the
- *  WebServer starts up, so does our Enclave ready to process any incoming bids on our auction.
+ *  Task 1: The first thing we are going to work on is the HostController's Constructor so that as soon as the
+ *  WebServer starts up our Enclave is ready to process any incoming bids on our auction.
  *
  *  TODO: Load and Start our Enclave on WebServer startup
  *
@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  *  HINT: See if the [EnclaveHost] class has any helper methods which take our enclave's class path as a String parameter.
  *
- *  Step 4: Start the enclave! Being that our enclave variable is of type [EnclaveHost] you use the "start" helper method.
+ *  Step 4: Start the enclave! Being that our enclave variable is of type [EnclaveHost] you use the "start" method.
  *  --> For the first parameter, let's give it a new instance of the AttestationParameters.DCAP() which is a generic datacenter attestation primitives protocol.
  *  --> For the second parameter, let's supply a new instance of EncalveHost.MailCallbacks()
  *
@@ -47,7 +47,7 @@ public class HostController {
 	}
 
 	/**
-	 * Task 4: Now that our enclave is loaded and running waiting for bids, we need a way for clients to retrieve the
+	 * Task 2: Now that our enclave is loaded and running waiting for bids, we need a way for clients to retrieve the
 	 * remote attestation so that they can verify the integrity of the enclave measurement as well as retrieve the Enclave's
 	 * public key. This public key is what each client will use to encrypt the bytes of their bids which will make only the enclave
 	 * will be able to view/decrypt.
@@ -65,7 +65,7 @@ public class HostController {
 	}
 
 	/**
-	 * Task 5: Clients are now able to retrieve the RA but we need to provide them with an endpoint they can use to POST
+	 * Task 3: Clients are now able to retrieve the RA but we need to provide them with an endpoint they can use to POST
 	 * their encrypted bids so that the Host can receive and forward them to the enclave.
 	 *
 	 * TODO: Define a POST endpoint which will accept MAIL as a byte array and deliver it to the enclave
@@ -95,7 +95,7 @@ public class HostController {
 	}
 
 	/**
-	 *  Task 6: To finish the WebServer we will simply define an endpoint which returns the winner	 *
+	 *  Task 4: To finish the WebServer we will simply define an endpoint which returns the winner	 *
 	 */
 	// A GET endpoint used to retrieve the remote attestation.
 	@GetMapping(path="/reveal_winner")
