@@ -8,12 +8,12 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 /**
- * Welcome to the Blind-Auction Conclave Training App!
+ * Welcome to the Enclave side of the Blind-Auction Application and congratulations for making it this far!
  */
 
 public class SealedBidAuction extends Enclave {
     /**
-     * TASK 1:  First we will implement a method that will be responsible for processing all incoming MAIL objects.
+     * TASK 5:  First we will implement a method that will be responsible for processing all incoming MAIL objects.
      *
      * Requirements for our Enclave's algorithm:
      *   TODO: The Enclave should be keeping track of how many bids it has received thus far.
@@ -57,7 +57,7 @@ public class SealedBidAuction extends Enclave {
     @Override
     protected void receiveMail(long id, String routingHint, EnclaveMail mail) {
         /**
-         * Task 2: Great job on writing your enclave's algorithm! This next task we will work on will actually deliver
+         * Task 6: Great job on writing your enclave's algorithm! This next task we will work on will actually deliver
          * the MAIL object to the "invoke" method we defined above.
          *
          *  TODO: Implement the receiveMail method which will handle receiving encrypted bytes known as MAIL from the Host.
