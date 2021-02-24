@@ -5,6 +5,7 @@ import com.r3.conclave.mail.EnclaveMail;
 import com.r3.conclave.mail.MutableMail;
 
 import java.nio.ByteBuffer;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -12,46 +13,48 @@ import java.util.List;
  */
 
 public class SealedBidAuction extends Enclave {
+
+    //a global variable used to store the various MAILs.
+    List<byte[]> allBids = new ArrayList<>();
+
+    //a global variable used to store the various Client publicKeys. By storing the keys, we can recall who the winner was once we find the highest bid.
+    List<PublicKey> bidders = new ArrayList<>();
+
+    //We will use this value to store the index related to the publicKey of the winning bidder.
+    int winner_index = -1;
+
+    public byte[] invoke(byte[] bid){
+        return new byte[1]; //Update this line in Task5-Step5
+    }
     /**
      * TASK 5:  First we will implement a method that will be responsible for processing all incoming MAIL objects.
      *
      * Requirements for our Enclave's algorithm:
-     *   TODO: The Enclave should be keeping track of how many bids it has received thus far.
-     *   Step 1: Create a global variable called "allBids" of type ArrayList which we will use to store the various MAILs.
-     *   HINT: Remember that MAIL objects consist of encrypted bytes so take that into account when defining your LIST.
-     *
-     *   Step 2: Create a global variable called "bidders" of type ArrayList which we will use to store the various Client publicKeys.
-     *   By storing the keys, we can recall who the winner was once we find the highest bid.
-     *
-     *   Step 3: Create a variable called winnerIndex and initialize it to -1. We will use this value to store the index
-     *   related to the publicKey of the winning bidder.
      *
      *   TODO: Only after some threshold (let's say 5) of bids is broken should the Enclave do any work.
-     *   Step 4: Next let's define a method that can receive byte[]'s as input and return byte[]'s as output. Let's give
-     *   a public access modifier and name it "invoke".
      *
-     *   Step 5: Upon receiving a new bid, we should first add it to our existing LIST "allBids". We can later use the
+     *   Step 1: Upon receiving a new bid, we should first add it to our existing LIST "allBids". We can later use the
      *   size of allBids to check to see if the threshold has been broken. Add a Line that takes the bid and "adds"
      *   it to allBids.
      *
      *   TODO: Once we have received all the necessary bids, we should loop through each bid and return the largest bid.
      *
-     *   Step 6: Now that we have a LIST that is growing in size each time a bid is sent from a client, let's add an
+     *   Step 2: Now that we have a LIST that is growing in size each time a bid is sent from a client, let's add an
      *   IF statement which will check to see if the current allBids.size() is 5 yet.
      *
-     *   Step 7: Assuming the IF statement we wrote in the previous step, we have to implement logical block that should
+     *   Step 3: Assuming the IF statement we wrote in the previous step, we have to implement logical block that should
      *   be executed. This block of code will be our algorithm for finding the greatest value in allBids. Try to figure
      *   out a way to do this by iterating over the list.
      *
      *   HINT: you can use ByteBuffer.wrap({The value your iterating on}).getInt() to convert the value to an Integer.
      *
-     *   Step 8: Once we find the highest bid, remember to store that index as the winning index by setting
+     *   Step 4: Once we find the highest bid, remember to store that index as the winning index by setting
      *   the variable we created earlier (winnerIndex) equal to the index of the current bid.
      *   HINT: for(i=0;...){winnerIndex = i;}
      *
-     *   Step 9: Finally, we have to return the highest bid value that we found as an array of bytes.
+     *   Step 5: Finally, we have to return the highest bid value that we found as an array of bytes.
      *
-     *   HINT: To convert back to bytes you can use: ByteBuffer.allocate().putInt.array()
+     *   HINT: To convert back to bytes you can use: ByteBuffer.allocate(4).putInt(YOUR_VARIABLE_HERE).array()
      */
 
     @Override
