@@ -15,7 +15,7 @@ This winning bid is saved in host memory so that it can be queried to reveal the
 1. Install Docker
 2. `docker run --name blind-auction -p 8080:8080 -it -d -v C:\ws\blind-auction\:/sdk -w /sdk ubuntu bash`
 3. `docker exec -ti blind-auction apt update`
-4. `docker exec -ti blind-auction apt install -y openjdk-8-jd`
+4. `docker exec -ti blind-auction apt install -y openjdk-8-jdk`
 
 ### Starting the Spring Server
 1. Clone this project to your local machine.

@@ -18,29 +18,34 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  *  TODO: Load and Start our Enclave on WebServer startup
  *
- *  Step 1: Create a Global variable named "enclave" of type EnclaveHost
- *
- *  Step 2: Create a variable named "requestToDeliver" of type AtomicReference that will be responsible for storing
- *  bytes of a MAIL object sent from our Enclave.
- *
- *  Step 3: Modify the HostController constructor by setting the enclave variable we created in the first step equal to
+ *  Step 1: Modify the HostController constructor by setting the enclave variable we created in the first step equal to
  *  the value of our loaded enclave.
  *
  *  HINT: See if the [EnclaveHost] class has any helper methods which take our enclave's class path as a String parameter.
  *
- *  Step 4: Start the enclave! Being that our enclave variable is of type [EnclaveHost] you use the "start" method.
+ *  Step 2: Start the enclave! Being that our enclave variable is of type [EnclaveHost] you use the "start" method.
  *  --> For the first parameter, let's give it a new instance of the AttestationParameters.DCAP() which is a generic datacenter attestation primitives protocol.
- *  --> For the second parameter, let's supply a new instance of EncalveHost.MailCallbacks()
+ *  --> For the second parameter, let's supply a new instance of EncalveHost.MailCallbacks(){}
  *
- *  Step 5: Inside the block of  MailCallbacks(), override the [postMail] method which is the method we will use to send mail to the enclave.
+ *  Step 3: Inside the block of  MailCallbacks(), override the [postMail] method which is the method we will use to send mail to the enclave.
  *  --> For the first parameter, create a byte array named "encrypted bytes"
  *  --> For the second parameter, create a string named "routingHint"
  *  --> Inside this postMail block, we need to set the value of requestToDeliver to the encryptedBytes parameter this method is receiving.
  *
+ *   @Override
+ *   public void postMail(byte[] encryptedBytes, String routingHint) {
+ * 	 	//use the .set method to set the encryptedBytes here!!!
+ *   }
  */
 
 @RestController
 public class HostController {
+	EnclaveHost enclave;
+
+	//This will be responsible for storing bytes of a MAIL object sent from our Enclave.
+	AtomicReference<byte[]> requestToDeliver = new AtomicReference<>();
+	long mailID = 0;
+	byte[] winner;
 
 	public HostController() throws EnclaveLoadException {
 
@@ -71,7 +76,8 @@ public class HostController {
 	 * TODO: Define a POST endpoint which will accept MAIL as a byte array and deliver it to the enclave
 	 *
 	 * Step 1: Use our enclave object's deliverMail method to forward the mail to the enclave.
-	 * --> For the first parameter, you can simply define a global long variable initialized to zero called "mailID"
+	 * --> For the first parameter, you can simply define a global long variable initialized to zero called "mailID". The mailID param should also be
+	 * incremented to ensure that a unique value is used each time.
 	 * --> The second parameter should be MAIL's byte data which we can reference as "bid"
 	 * --> Lastly, the thirs parameter should be any String that might be useful for the enclave. We can just put "routingHint" for now.
 	 *
